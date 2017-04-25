@@ -16,9 +16,21 @@ namespace ContBancar
             
             Console.WriteLine("Numarul total de conturi create este: {0}", Cont.Count);
 
-            c1.Depune(100m);
-            c1.Retrage(50m);
-            c1.Retrage(150m);
+            try
+            {
+                c1.Depune(100m);
+                c1.Retrage(50m);
+                c1.Retrage(150m);
+                c1.Depune(100m);
+            }
+            catch (InvalidAmountException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            catch (NotEnoughFundsException e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }

@@ -22,6 +22,22 @@ namespace ContBancar
             this.sold = sold;
             contor++;
         }
+
+        internal void Retrage(decimal suma)
+        {
+            Log("Incerc sa retarg", suma);
+            if (this.sold - suma >= 0)
+            {
+                sold -= suma;
+                Log("Am retras", suma);
+            }
+            else
+            {
+                Log("Nu am reusit sa retrag", suma);
+                throw new NotEnoughFundsException("Fonduri insuficiente.");
+            }
+        }
+
         public static int Count
         {
             get
@@ -31,14 +47,23 @@ namespace ContBancar
         }
         public void Depune(decimal suma)
         {
+            Log("Incerc sa depun", suma);
             if (suma >= 0)
             {
                 sold += suma;
+                Log("Am depus", suma);
             }
             else
             {
+                Log("Nu am reusit sa depun", suma);
                 throw new InvalidAmountException("suma depusa este negativa");
             }
+        }
+
+        private void Log(string v, decimal suma)
+        {
+            Console.Write(v);
+            Console.WriteLine(" {0}", suma);
         }
     }
 }
